@@ -1,0 +1,116 @@
+{
+  "user": {
+    "name": "Aarav",
+    "initials": "AK"
+  },
+  "balance": 284650,
+  "income": 95000,
+  "savingsRate": 40.3,
+  "healthScore": 82,
+  "transactions": [
+    {
+      "id": 1,
+      "merchant": "Green Basket",
+      "category": "Groceries",
+      "amount": 2840,
+      "date": "2026-06-18",
+      "type": "expense",
+      "icon": "shopping",
+      "status": "cleared"
+    },
+    {
+      "id": 2,
+      "merchant": "Metro Transit",
+      "category": "Transport",
+      "amount": 620,
+      "date": "2026-06-17",
+      "type": "expense",
+      "icon": "car",
+      "status": "cleared"
+    },
+    {
+      "id": 3,
+      "merchant": "Cloud Nine Cafe",
+      "category": "Dining",
+      "amount": 1150,
+      "date": "2026-06-16",
+      "type": "expense",
+      "icon": "coffee",
+      "status": "cleared"
+    },
+    {
+      "id": 4,
+      "merchant": "StreamFlix",
+      "category": "Subscriptions",
+      "amount": 649,
+      "date": "2026-06-15",
+      "type": "expense",
+      "icon": "play",
+      "status": "cleared"
+    },
+    {
+      "id": 5,
+      "merchant": "Acme Technologies",
+      "category": "Income",
+      "amount": 95000,
+      "date": "2026-06-01",
+      "type": "income",
+      "icon": "briefcase",
+      "status": "cleared"
+    },
+    {
+      "id": 6,
+      "merchant": "Urban Homes",
+      "category": "Housing",
+      "amount": 24000,
+      "date": "2026-06-02",
+      "type": "expense",
+      "icon": "home",
+      "status": "cleared"
+    },
+    {
+      "id": 7,
+      "merchant": "Power & Light",
+      "category": "Utilities",
+      "amount": 3250,
+      "date": "2026-06-05",
+      "type": "expense",
+      "icon": "utility",
+      "status": "cleared"
+    },
+    {
+      "id": 8,
+      "merchant": "Wellness Pharmacy",
+      "category": "Health",
+      "amount": 1860,
+      "date": "2026-05-28",
+      "type": "expense",
+      "icon": "health",
+      "status": "cleared"
+    }
+  ],
+  "goals": [
+    {
+      "id": 1,
+      "name": "Emergency fund",
+      "current": 185000,
+      "target": 300000,
+      "deadline": "2026-12-31",
+      "color": "#163d33"
+    },
+    {
+      "id": 2,
+      "name": "Europe trip",
+      "current": 72000,
+      "target": 150000,
+      "deadline": "2027-04-01",
+      "color": "#e8a25a"
+    }
+  ],
+  "settings": {
+    "currency": "INR",
+    "monthlyBudget": 65000,
+    "alerts": true,
+    "darkMode": false
+  }
+}
