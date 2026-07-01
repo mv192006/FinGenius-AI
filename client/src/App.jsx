@@ -93,7 +93,50 @@ function Chat({open,setOpen}) {
   return <aside className="chat"><header><div><span><Bot size={19}/></span><div><strong>FinGenius AI</strong><small>Personal finance advisor</small></div></div><button onClick={()=>setOpen(false)}><X size={19}/></button></header><div className="chat-body"><div className="quick-prompts">{['Where can I save?','How should I invest?'].map(q=><button key={q} onClick={()=>send(q)}>{q}</button>)}</div>{messages.map((m,i)=><div key={i} className={`message ${m.role}`}>{m.text}</div>)}{loading&&<div className="message ai typing">Thinking…</div>}</div><form onSubmit={e=>{e.preventDefault();send()}}><input placeholder="Ask about your finances…" value={input} onChange={e=>setInput(e.target.value)}/><button><Send size={17}/></button></form></aside>;
 }
 
+function LoginPage({ onLogin }) {
+  const [email, setEmail] = useState('demo@fingenius.ai');
+  const [password, setPassword] = useState('demo123');
+  const [loading, setLoading] = useState(false);
+
+  const handleLogin = (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+      onLogin();
+    }, 1200);
+  };
+
+  return (
+    <div className="login-wrapper">
+      <div className="login-card">
+        <div className="brand login-brand">
+          <span><ChartNoAxesCombined size={28}/></span>
+          <strong>FinGenius</strong><i>AI</i>
+        </div>
+        <h2>Welcome back</h2>
+        <p>Log in to manage your financial world.</p>
+        <form onSubmit={handleLogin} className="login-form">
+          <label>Email
+            <input type="email" value={email} onChange={e=>setEmail(e.target.value)} required />
+          </label>
+          <label>Password
+            <input type="password" value={password} onChange={e=>setPassword(e.target.value)} required />
+          </label>
+          <button className="primary full login-btn" disabled={loading}>
+            {loading ? 'Authenticating...' : 'Sign In'}
+          </button>
+        </form>
+        <div className="login-footer">
+          Demo login. Click Sign In to continue.
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [data,setData]=useState(fallback), [active,setActive]=useState('Overview'), [chatOpen,setChatOpen]=useState(false), [menu,setMenu]=useState(false);
   const [addOpen,setAddOpen]=useState(false), [settingsOpen,setSettingsOpen]=useState(false), [notificationsOpen,setNotificationsOpen]=useState(false), [searchQuery,setSearchQuery]=useState('');
   const refresh=useCallback(()=>fetch('/api/dashboard').then(r=>r.ok?r.json():Promise.reject()).then(setData).catch(()=>{}),[]);
@@ -107,6 +150,11 @@ export default function App() {
     if(active==='Investments')return <InvestmentPlanner/>;
     return <AdvisorPage data={data} openChat={()=>setChatOpen(true)}/>;
   },[active,data,navigate,refresh]);
+
+  if (!isLoggedIn) {
+    return <LoginPage onLogin={() => setIsLoggedIn(true)} />;
+  }
+
   return <div className="app-shell">
     <aside className={`sidebar ${menu?'open':''}`}><div className="brand"><span><ChartNoAxesCombined size={23}/></span><strong>FinGenius</strong><i>AI</i></div><nav>{nav.map(([name,Icon])=><button key={name} className={active===name?'active':''} onClick={()=>navigate(name)}><Icon size={18}/><span>{name}</span>{name==='AI advisor'&&<b>AI</b>}</button>)}</nav><div className="sidebar-bottom"><button onClick={()=>setSettingsOpen(true)}><Settings size={18}/>Settings</button><div className="profile"><span>AK</span><div><strong>Aarav Kapoor</strong><small>Personal account</small></div><MoreHorizontal size={18}/></div></div></aside>
     <main><header className="topbar"><button className="menu-button" onClick={()=>setMenu(!menu)}><Menu size={21}/></button><div className="search"><Search size={17}/><input value={searchQuery} onChange={e=>setSearchQuery(e.target.value)} placeholder="Search transactions, goals…"/><kbd>⌘ K</kbd>{searchQuery&&<GlobalSearch query={searchQuery} data={data} onSelect={navigate}/>}</div><div className="top-actions"><button onClick={()=>setNotificationsOpen(!notificationsOpen)}><Bell size={19}/><i/></button><button className="avatar" onClick={()=>setSettingsOpen(true)}>AK</button>{notificationsOpen&&<Notifications data={data} onClose={()=>setNotificationsOpen(false)}/>}</div></header><div className="content">{content}</div></main>
